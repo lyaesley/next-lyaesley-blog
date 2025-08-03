@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
   distDir: 'out',
+  basePath: '/next-lyaesley-blog',
   images: {
     unoptimized: true
   },
