@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { createT } from '@/lib/translations';
 import { BlogPost } from '@/types/blog';
 import { Calendar, Clock, Tag } from 'lucide-react';
+import { tagToSlug } from '@/lib/slugify';
 
 interface PostCardProps {
   post: BlogPost;
@@ -73,7 +74,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
                   {post.tags.slice(0, 2).map((tag) => (
                     <Link
                       key={tag}
-                      href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                      href={`/tags/${tagToSlug(tag)}`}
                       className="text-xs text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
                     >
                       #{tag}

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { createT } from "@/lib/translations";
 import { Github, Twitter, Linkedin, Mail } from "lucide-react";
+import { categoryToSlug } from "@/lib/slugify";
 
 export function Footer() {
   const t = createT("footer");
@@ -76,7 +77,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/categories/web-development"
+                  href={`/categories/${categoryToSlug("웹 개발")}`}
                   className="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
                 >
                   {t("webDevelopment")}
@@ -84,7 +85,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/categories/javascript"
+                  href={`/categories/${categoryToSlug("JavaScript")}`}
                   className="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
                 >
                   {t("javascript")}
@@ -92,7 +93,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/categories/react"
+                  href={`/categories/${categoryToSlug("React")}`}
                   className="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
                 >
                   {t("react")}
@@ -100,7 +101,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/categories/tutorials"
+                  href={`/categories/${categoryToSlug("튜토리얼")}`}
                   className="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
                 >
                   {t("tutorials")}

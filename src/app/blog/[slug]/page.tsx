@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getAllPostSlugs, getPostBySlug, markdownToHtml, getRecentPosts } from '@/lib/markdown';
 import { Calendar, Clock, User, Tag, ArrowLeft } from 'lucide-react';
 import { PostCard } from '@/components/blog/post-card';
+import { tagToSlug } from '@/lib/slugify';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -119,7 +120,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {post.tags.map((tag) => (
                   <Link
                     key={tag}
-                    href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                    href={`/tags/${tagToSlug(tag)}`}
                     className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition-colors"
                   >
                     #{tag}

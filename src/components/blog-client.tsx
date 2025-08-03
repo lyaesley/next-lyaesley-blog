@@ -5,6 +5,7 @@ import { Filter, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import { createT } from '@/lib/translations';
 import { BlogPost } from '@/types/blog';
+import { categoryToSlug, tagToSlug } from '@/lib/slugify';
 
 interface BlogClientProps {
   posts: BlogPost[];
@@ -76,7 +77,7 @@ export function BlogClient({ posts, categories, tags }: BlogClientProps) {
                   {categories.map((category) => (
                     <Link
                       key={category}
-                      href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                      href={`/categories/${categoryToSlug(category)}`}
                       className="block text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
                     >
                       {category}
@@ -102,7 +103,7 @@ export function BlogClient({ posts, categories, tags }: BlogClientProps) {
                   {tags.slice(0, 10).map((tag) => (
                     <Link
                       key={tag}
-                      href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                      href={`/tags/${tagToSlug(tag)}`}
                       className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-200 dark:hover:bg-blue-800 transition-colors"
                     >
                       #{tag}

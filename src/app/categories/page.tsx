@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getAllCategories, getPostsByCategory } from '@/lib/markdown';
 import { Folder, BookOpen } from 'lucide-react';
+import { categoryToSlug } from '@/lib/slugify';
 
 export const metadata = {
   title: 'Categories - Tech Blog',
@@ -45,7 +46,7 @@ export default function CategoriesPage() {
             return (
               <Link
                 key={category}
-                href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                href={`/categories/${categoryToSlug(category)}`}
                 className="group block"
               >
                 <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm hover:shadow-md transition-all group-hover:border-blue-300 dark:group-hover:border-blue-600">

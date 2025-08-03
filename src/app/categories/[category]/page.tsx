@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getAllCategories, getPostsByCategory } from '@/lib/markdown';
 import { PostCard } from '@/components/blog/post-card';
 import { ArrowLeft, Folder, BookOpen } from 'lucide-react';
+import { categoryToSlug, slugToCategory } from '@/lib/slugify';
 
 interface CategoryPageProps {
   params: Promise<{
@@ -13,15 +14,13 @@ interface CategoryPageProps {
 export function generateStaticParams() {
   const categories = getAllCategories();
   return categories.map((category) => ({
-    category: category.toLowerCase().replace(/\s+/g, '-'),
+    category: categoryToSlug(category),
   }));
 }
 
 export async function generateMetadata({ params }: CategoryPageProps) {
   const { category } = await params;
-  const categoryName = category.replace(/-/g, ' ').replace(/\w\S*/g, 
-    (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-  );
+  const categoryName = slugToCategory(category);
   
   const posts = getPostsByCategory(categoryName);
   
@@ -32,17 +31,15 @@ export async function generateMetadata({ params }: CategoryPageProps) {
   }
 
   return {
-    title: `${categoryName} - Tech Blog`,
-    description: `Browse ${posts.length} articles in the ${categoryName} category. Discover insights and tutorials about ${categoryName.toLowerCase()}.`,
-    keywords: [categoryName.toLowerCase(), 'articles', 'tutorials', 'tech blog'],
+    title: `${categoryName} - 테크 블로그`,
+    description: `${categoryName} 카테고리의 ${posts.length}개 게시글을 둘러보세요. ${categoryName}에 관한 인사이트와 튜토리얼을 발견하세요.`,
+    keywords: [categoryName, 'articles', 'tutorials', 'tech blog', '게시글', '튜토리얼'],
   };
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category } = await params;
-  const categoryName = category.replace(/-/g, ' ').replace(/\w\S*/g, 
-    (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-  );
+  const categoryName = slugToCategory(category);
   
   const posts = getPostsByCategory(categoryName);
   
@@ -62,7 +59,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           className="inline-flex items-center text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
         >
           <ArrowLeft className="h-4 w-4 mr-1" />
-          Back to Categories
+          카테고리로 돌아가기
         </Link>
       </div>
 
@@ -82,12 +79,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-400">
           <div className="flex items-center space-x-1">
             <BookOpen className="h-4 w-4" />
-            <span>{posts.length} article{posts.length !== 1 ? 's' : ''}</span>
+            <span>{posts.length}개 게시글</span>
           </div>
           {featuredPosts.length > 0 && (
             <div className="flex items-center space-x-1">
               <span className="w-2 h-2 bg-yellow-400 rounded-full"></span>
-              <span>{featuredPosts.length} featured</span>
+              <span>{featuredPosts.length}개 추천</span>
             </div>
           )}
         </div>
@@ -97,7 +94,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       {featuredPosts.length > 0 && (
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
-            Featured Articles
+            추천 게시글
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredPosts.map((post) => (
@@ -111,7 +108,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       {regularPosts.length > 0 && (
         <section>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
-            {featuredPosts.length > 0 ? 'More Articles' : 'All Articles'}
+            {featuredPosts.length > 0 ? '더 많은 게시글' : '모든 게시글'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {regularPosts.map((post) => (
@@ -124,7 +121,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       {/* Related Categories */}
       <section className="mt-16 pt-16 border-t border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-          Explore Other Categories
+          다른 카테고리 둘러보기
         </h2>
         <div className="flex flex-wrap gap-3">
           {getAllCategories()
@@ -133,7 +130,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             .map((category) => (
               <Link
                 key={category}
-                href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                href={`/categories/${categoryToSlug(category)}`}
                 className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 dark:hover:border-blue-600 hover:text-blue-700 dark:hover:text-blue-400 transition-all"
               >
                 <Folder className="h-4 w-4 mr-2" />

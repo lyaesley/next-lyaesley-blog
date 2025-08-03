@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getAllTags, getPostsByTag } from '@/lib/markdown';
 import { Tag, Hash } from 'lucide-react';
+import { tagToSlug } from '@/lib/slugify';
 
 export const metadata = {
   title: 'Tags - Tech Blog',
@@ -39,7 +40,7 @@ export default function TagsPage() {
         {tags.map((tag) => (
           <Link
             key={tag.name}
-            href={`/tags/${tag.name.toLowerCase().replace(/\s+/g, '-')}`}
+            href={`/tags/${tagToSlug(tag.name)}`}
             className="group inline-flex items-center space-x-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 dark:hover:border-blue-600 hover:text-blue-700 dark:hover:text-blue-400 transition-all"
           >
             <Hash className="h-3 w-3" />
