@@ -2,14 +2,13 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useTranslations } from "@/contexts/i18n-context";
+import { createT } from "@/lib/translations";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { LanguageToggle } from "@/components/ui/language-toggle";
 import { Search, Menu, X } from "lucide-react";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const t = useTranslations("navigation");
+  const t = createT("navigation");
 
   const navigation = [
     { name: t("home"), href: "/" },
@@ -49,7 +48,7 @@ export function Header() {
             ))}
           </nav>
 
-          {/* 검색, 언어 변경, 테마 토글 */}
+          {/* 검색, 테마 토글 */}
           <div className="flex items-center space-x-4">
             <Link
               href="/search"
@@ -58,7 +57,6 @@ export function Header() {
             >
               <Search className="h-4 w-4" />
             </Link>
-            <LanguageToggle />
             <ThemeToggle />
 
             {/* 모바일 메뉴 버튼 */}

@@ -3,7 +3,7 @@
 import { PostCard } from '@/components/blog/post-card';
 import { Filter, BookOpen } from 'lucide-react';
 import Link from 'next/link';
-import { useTranslations } from '@/contexts/i18n-context';
+import { createT } from '@/lib/translations';
 import { BlogPost } from '@/types/blog';
 
 interface BlogClientProps {
@@ -13,8 +13,8 @@ interface BlogClientProps {
 }
 
 export function BlogClient({ posts, categories, tags }: BlogClientProps) {
-  const t = useTranslations('blog');
-  const tHomepage = useTranslations('homepage');
+  const t = createT('blog');
+  const tHomepage = createT('homepage');
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">

@@ -1,10 +1,10 @@
 'use client';
 
 import { Mail, Github, Twitter, Linkedin, MessageSquare, FileText, HelpCircle } from 'lucide-react';
-import { useTranslations } from '@/contexts/i18n-context';
+import { createT } from '@/lib/translations';
 
 export function ContactClient() {
-  const t = useTranslations('contact');
+  const t = createT('contact');
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">

@@ -2,10 +2,10 @@
 
 import { Github, Twitter, Linkedin, Mail, Code, Coffee, Users } from 'lucide-react';
 import Link from 'next/link';
-import { useTranslations } from '@/contexts/i18n-context';
+import { createT } from '@/lib/translations';
 
 export function AboutClient() {
-  const t = useTranslations('about');
+  const t = createT('about');
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">

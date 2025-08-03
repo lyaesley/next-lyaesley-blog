@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useTranslations, useLocale } from '@/contexts/i18n-context';
+import { createT } from '@/lib/translations';
 import { BlogPost } from '@/types/blog';
 import { Calendar, Clock, Tag } from 'lucide-react';
 
@@ -11,12 +11,10 @@ interface PostCardProps {
 }
 
 export function PostCard({ post, featured = false }: PostCardProps) {
-  const t = useTranslations('common');
-  const locale = useLocale();
+  const t = createT('common');
   
   const formatDate = (dateString: string) => {
-    const isKorean = locale === 'ko';
-    return new Date(dateString).toLocaleDateString(isKorean ? 'ko-KR' : 'en-US', {
+    return new Date(dateString).toLocaleDateString('ko-KR', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',

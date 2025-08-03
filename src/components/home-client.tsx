@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useTranslations } from '@/contexts/i18n-context';
+import { createT } from '@/lib/translations';
 import { PostCard } from '@/components/blog/post-card';
 import { ArrowRight, TrendingUp, BookOpen, Users } from 'lucide-react';
 import { BlogPost } from '@/types/blog';
@@ -12,8 +12,8 @@ interface HomeClientProps {
 }
 
 export function HomeClient({ featuredPosts, recentPosts }: HomeClientProps) {
-  const t = useTranslations('homepage');
-  const tCommon = useTranslations('common');
+  const t = createT('homepage');
+  const tCommon = createT('common');
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">

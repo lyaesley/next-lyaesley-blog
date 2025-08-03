@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useTranslations } from "@/contexts/i18n-context";
+import { createT } from "@/lib/translations";
 import { Github, Twitter, Linkedin, Mail } from "lucide-react";
 
 export function Footer() {
-  const t = useTranslations("footer");
+  const t = createT("footer");
   const currentYear = new Date().getFullYear();
 
   return (

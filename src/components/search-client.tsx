@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { useTranslations } from '@/contexts/i18n-context';
+import { createT } from '@/lib/translations';
 import { PostCard } from '@/components/blog/post-card';
 import { Search, Filter, X } from 'lucide-react';
 import Fuse from 'fuse.js';
@@ -14,8 +14,8 @@ interface SearchClientProps {
 }
 
 export function SearchClient({ posts, categories, tags }: SearchClientProps) {
-  const t = useTranslations('search');
-  const tCommon = useTranslations('common');
+  const t = createT('search');
+  const tCommon = createT('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
