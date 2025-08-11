@@ -1,3 +1,22 @@
+// 번역 타입 정의
+type NavigationKeys = 'home' | 'blog' | 'categories' | 'tags' | 'about' | 'contact' | 'search' | 'menuToggle';
+type CommonKeys = 'readMore' | 'backTo' | 'featuredPosts' | 'recentPosts' | 'allPosts' | 'morePosts' | 'noResults' | 'loading' | 'error' | 'copy' | 'copied' | 'minRead' | 'featured' | 'by' | 'on' | 'in' | 'tagged' | 'articles' | 'article';
+
+// 번역 키 타입
+export type TranslationKey = 
+  | `navigation.${NavigationKeys}`
+  | `common.${CommonKeys}`
+  | `homepage.${string}`
+  | `blog.${string}`
+  | `search.${string}`
+  | `categories.${string}`
+  | `tags.${string}`
+  | `about.${string}`
+  | `contact.${string}`
+  | `footer.${string}`
+  | `language.${string}`
+  | `meta.${string}`;
+
 // 한국어 전용 번역 상수
 export const translations = {
   navigation: {
@@ -175,8 +194,8 @@ export const translations = {
   }
 };
 
-// 번역 함수 - 중첩된 키 지원 (예: "navigation.home")
-export function t(key: string): string {
+// 타입 안전한 번역 함수 - 중첩된 키 지원 (예: "navigation.home")
+export function t(key: TranslationKey): string {
   const keys = key.split('.');
   let current: any = translations;
   
@@ -192,7 +211,7 @@ export function t(key: string): string {
   return typeof current === 'string' ? current : key;
 }
 
-// 네임스페이스별 번역 함수
+// 네임스페이스별 번역 함수 (타입 안전)
 export function createT(namespace: string) {
-  return (key: string) => t(`${namespace}.${key}`);
+  return (key: string) => t(`${namespace}.${key}` as TranslationKey);
 }

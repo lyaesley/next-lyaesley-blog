@@ -43,6 +43,7 @@ const tagSlugMap: Record<string, string> = {
   "Claude Code": "claude-code",
   "AI": "ai",
   "CC": "cc",
+  "cc": "cc",
   "머신러닝": "machine-learning",
   "딥러닝": "deep-learning",
   "파이썬": "python",

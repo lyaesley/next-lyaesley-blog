@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { getAllPostSlugs, getPostBySlug, markdownToHtml, getRecentPosts } from '@/lib/markdown';
 import { Calendar, Clock, User, Tag, ArrowLeft } from 'lucide-react';
 import { PostCard } from '@/components/blog/post-card';
+import { BlogPostJsonLd } from '@/components/seo/json-ld';
 import { tagToSlug } from '@/lib/slugify';
+import { formatDate } from '@/lib/utils';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -59,13 +61,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const contentHtml = await markdownToHtml(post.content);
   const recentPosts = getRecentPosts(3).filter(p => p.slug !== post.slug);
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  };
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">

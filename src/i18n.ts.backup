@@ -10,6 +10,7 @@ export default getRequestConfig(async ({ locale }) => {
   if (!locales.includes(locale as any)) notFound();
 
   return {
+    locale,
     // 해당 언어의 메시지 파일 로드
     messages: (await import(`../messages/${locale}.json`)).default
   };
